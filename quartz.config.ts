@@ -4,11 +4,14 @@ import * as Plugin from "./quartz/plugins"
 /**
  * Quartz 4 Configuration
  *
+ * 内部プロジェクト名: 宇宙スタジオ
+ * 公開サイトの表示名: へーちょー
+ *
  * See https://quartz.jzhao.xyz/configuration for more information.
  */
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "宇宙スタジオ",
+    pageTitle: "へーちょー",
     pageTitleSuffix: "",
     enableSPA: true,
     enablePopovers: true,
