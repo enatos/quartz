@@ -1,15 +1,21 @@
 @use "./base.scss";
 
-// へーちょー — Quartz 本番用（custom.scss のみ）
-// 単体 HTML 用の .site / .brand / .article-header 等は使わず、hee- 系と Quartz DOM に合わせてスコープ
+/* へーちょー — Quartz 本番用
+   - Quartz標準DOMは必要最小限だけ上書き
+   - 独自部品は .hee-* に集約
+*/
+
+/* ========== Tokens ========== */
 
 :root {
   --font-site: "Shippori Mincho", serif;
-  --font-article-title: "Lora", "Shippori Mincho", sans-serif;
   --font-body: "Lora", "Shippori Mincho", serif;
+  --font-title: "Lora", "Shippori Mincho", serif;
+
   --titleFont: var(--font-site);
   --headerFont: var(--font-body);
   --bodyFont: var(--font-body);
+
   --hee-bg: #f8f6f1;
   --hee-paper: #fffdfa;
   --hee-ink: #262626;
@@ -18,10 +24,46 @@
   --hee-soft: #efebe4;
   --hee-soft-2: #f4f0e9;
   --hee-accent: #81786d;
+
   --hee-radius: 12px;
   --hee-measure: 43rem;
   --hee-wide: 58rem;
 }
+
+/* ========== Mixins ========== */
+
+@mixin hee-card($padding: null) {
+  border: 1px solid var(--hee-line);
+  border-radius: var(--hee-radius);
+  background: var(--hee-paper);
+
+  @if $padding != null {
+    padding: $padding;
+  }
+}
+
+@mixin hee-hover {
+  transition: border-color 160ms ease, transform 160ms ease, background 160ms ease;
+
+  &:hover {
+    border-color: var(--hee-accent);
+    background: var(--hee-soft-2);
+    transform: translateY(-1px);
+  }
+}
+
+@mixin muted-small($size: 0.82rem) {
+  color: var(--hee-muted);
+  font: #{$size}/1.6 var(--font-body);
+  letter-spacing: 0.04em;
+}
+
+@mixin wide-block {
+  width: min(100%, var(--hee-wide));
+  max-width: var(--hee-wide);
+}
+
+/* ========== Quartz Base Override ========== */
 
 #quartz-root.page {
   background:
@@ -41,78 +83,71 @@
 
 .page {
   padding-inline: clamp(1rem, 3vw, 2rem);
-}
 
-.page .center > article {
-  max-width: var(--hee-wide);
-  margin-inline: auto;
-  width: 100%;
+  .center > article {
+    @include wide-block;
+    margin-inline: auto;
 
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: var(--font-article-title);
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: var(--font-title);
+    }
   }
 }
 
-// Quartz 標準メタ・タグは .hee-meta がある記事では非表示
-.center:has(article .hee-meta) {
-  .content-meta,
-  ul.tags {
-    display: none;
-  }
-}
-
-// サイドバー：サイトタイトル
 .page-title,
 .page-title a {
   font-family: var(--font-site);
+  white-space: nowrap;
+  word-break: keep-all;
+  overflow-wrap: normal;
 }
 
-// トップ（index）：サイトタイトル・サイト説明
-body[data-slug="index"] {
-  .center .article-title,
-  article > h1 {
-    font-family: var(--font-site);
+.center {
+  &:has(article .hee-meta) {
+    .content-meta,
+    ul.tags {
+      display: none;
+    }
   }
 
+  .article-title {
+    max-width: var(--hee-measure);
+    margin: 2.5rem 0 0;
+    color: var(--hee-ink);
+    font: 500 clamp(2rem, 5vw, 3.15rem) / 1.45 var(--font-title);
+    letter-spacing: 0.055em;
+  }
+}
+
+body[data-slug="index"] {
+  .center .article-title,
+  article > h1,
   article > p:first-of-type {
     font-family: var(--font-site);
   }
 }
 
-// 記事ページなど：記事タイトル
-body:not([data-slug="index"]) .center .article-title {
-  font-family: var(--font-article-title);
-}
+/* ========== Home ========== */
 
-.center .article-title {
-  max-width: var(--hee-measure);
-  margin: 2.5rem 0 0;
-  font-size: clamp(2rem, 5vw, 3.15rem);
-  line-height: 1.45;
-  font-weight: 500;
-  letter-spacing: 0.055em;
-  color: var(--hee-ink);
-}
-
-// HOME: カテゴリ導線
 .hee-header-nav {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.85rem;
-  max-width: var(--hee-wide);
+  @include wide-block;
   margin: 2.25rem 0 3rem;
 
+  &,
   ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 0.85rem;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
 
   li {
@@ -120,25 +155,22 @@ body:not([data-slug="index"]) .center .article-title {
   }
 
   a {
+    @include hee-card(1rem 1.05rem);
+    @include hee-hover;
     display: block;
-    padding: 1rem 1.05rem;
-    border: 1px solid var(--hee-line);
-    border-radius: var(--hee-radius);
-    background: var(--hee-paper);
     color: var(--hee-ink);
     text-decoration: none;
-    transition: border-color 160ms ease, transform 160ms ease, background 160ms ease;
+  }
 
-    &:hover {
-      border-color: var(--hee-accent);
-      background: var(--hee-soft-2);
-      transform: translateY(-1px);
-    }
+  strong,
+  .label,
+  small,
+  .desc {
+    display: block;
   }
 
   strong,
   .label {
-    display: block;
     margin-bottom: 0.25rem;
     font-size: 0.98rem;
     letter-spacing: 0.06em;
@@ -146,20 +178,19 @@ body:not([data-slug="index"]) .center .article-title {
 
   small,
   .desc {
-    display: block;
     color: var(--hee-muted);
     font-size: 0.78rem;
     line-height: 1.7;
   }
 }
 
-.hee-categories {
-  .hee-en {
-    font-size: 0.9em;
-    opacity: 0.7;
-    margin-left: 0.25rem;
-  }
+.hee-categories .hee-en {
+  margin-left: 0.25rem;
+  font-size: 0.9em;
+  opacity: 0.7;
 }
+
+/* ========== Article ========== */
 
 article .lead,
 .hee-lead {
@@ -170,18 +201,14 @@ article .lead,
 }
 
 .hee-meta {
+  @include muted-small;
   display: flex;
   flex-wrap: wrap;
   gap: 0.45rem 1rem;
   align-items: center;
   margin: 1.8rem 0;
   padding: 0.75rem 0;
-  border-top: 1px solid var(--hee-line);
-  border-bottom: 1px solid var(--hee-line);
-  color: var(--hee-muted);
-  font-size: 0.82rem;
-  font-family: var(--font-body);
-  letter-spacing: 0.04em;
+  border-block: 1px solid var(--hee-line);
 
   span,
   > * {
@@ -196,17 +223,16 @@ article .lead,
 }
 
 .hee-hero {
+  @include hee-card;
+  position: relative;
   width: 100%;
-  margin: 1.7rem 0 2.6rem;
   min-height: clamp(190px, 30vw, 340px);
-  border: 1px solid var(--hee-line);
-  border-radius: var(--hee-radius);
+  margin: 1.7rem 0 2.6rem;
   overflow: hidden;
   background:
     radial-gradient(circle at 63% 58%, rgba(38, 38, 38, 0.18) 0 3.4rem, transparent 3.5rem),
     radial-gradient(circle at 38% 48%, rgba(38, 38, 38, 0.075) 0 0.18rem, transparent 0.2rem),
     linear-gradient(135deg, #ebe8e2 0%, #fdfbf6 44%, #d9d6cf 100%);
-  position: relative;
 
   &::before,
   &::after {
@@ -238,17 +264,16 @@ article .lead,
     object-fit: cover;
     filter: saturate(0.72) contrast(0.96);
   }
-}
 
-.hero-caption,
-.hee-hero-caption {
-  position: absolute;
-  left: 1.1rem;
-  bottom: 0.85rem;
-  color: rgba(38, 38, 38, 0.54);
-  font-size: 0.76rem;
-  font-family: var(--font-body);
-  letter-spacing: 0.06em;
+  .hero-caption,
+  .hee-hero-caption {
+    position: absolute;
+    left: 1.1rem;
+    bottom: 0.85rem;
+    color: rgba(38, 38, 38, 0.54);
+    font: 0.76rem var(--font-body);
+    letter-spacing: 0.06em;
+  }
 }
 
 article.hee-post {
@@ -269,12 +294,9 @@ article.hee-post {
     margin: 3.4rem 0 1.2rem;
     padding-top: 1.2rem;
     border-top: 1px solid var(--hee-line);
-    font-size: 1.45rem;
-    line-height: 1.6;
-    font-weight: 500;
-    letter-spacing: 0.06em;
     color: var(--hee-ink);
-    font-family: var(--font-article-title);
+    font: 500 1.45rem / 1.6 var(--font-title);
+    letter-spacing: 0.06em;
   }
 
   strong {
@@ -283,13 +305,12 @@ article.hee-post {
   }
 }
 
+/* ========== Figure / Infographic ========== */
+
 .hee-infographic {
-  width: min(100%, var(--hee-wide));
+  @include hee-card(clamp(1.1rem, 3vw, 2rem));
+  @include wide-block;
   margin: 3rem 0;
-  padding: clamp(1.1rem, 3vw, 2rem);
-  border: 1px solid var(--hee-line);
-  border-radius: var(--hee-radius);
-  background: var(--hee-paper);
 
   img,
   svg {
@@ -307,8 +328,8 @@ article.hee-post {
 }
 
 .info-node {
-  min-height: 8rem;
   display: grid;
+  min-height: 8rem;
   place-items: center;
   padding: 1rem;
   border: 1px solid var(--hee-line);
@@ -319,9 +340,9 @@ article.hee-post {
   line-height: 1.7;
 
   &.dark {
+    border-color: var(--hee-ink);
     background: var(--hee-ink);
     color: var(--hee-paper);
-    border-color: var(--hee-ink);
   }
 }
 
@@ -334,52 +355,46 @@ article.hee-post {
 .hee-infographic figcaption,
 .hee-infographic .caption,
 .hee-infographic-caption {
+  @include muted-small(0.78rem);
   margin: 1rem 0 0;
-  color: var(--hee-muted);
   text-align: center;
-  font-size: 0.78rem;
-  font-family: var(--font-body);
 }
 
+/* ========== Related Cards ========== */
+
 .related {
+  @include wide-block;
   margin: 4rem 0 2rem;
-  max-width: var(--hee-wide);
 
   h2 {
     max-width: none;
     margin-bottom: 1rem;
-    font-size: 1.45rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    border-top: 0;
     padding-top: 0;
-    font-family: var(--font-article-title);
+    border-top: 0;
+    font: 500 1.45rem var(--font-title);
+    letter-spacing: 0.06em;
   }
 }
 
-.hee-related-grid {
+.hee-related-grid,
+.hee-footer-latest {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.hee-related-grid {
   gap: 1rem;
 }
 
 .hee-related-card {
+  @include hee-card;
+  @include hee-hover;
   display: flex;
   min-height: 12rem;
   flex-direction: column;
-  border: 1px solid var(--hee-line);
-  border-radius: var(--hee-radius);
-  background: var(--hee-paper);
   overflow: hidden;
-  text-decoration: none;
   color: var(--hee-ink);
-  transition: border-color 160ms ease, transform 160ms ease, background 160ms ease;
-
-  &:hover {
-    border-color: var(--hee-accent);
-    background: var(--hee-soft-2);
-    transform: translateY(-1px);
-  }
+  text-decoration: none;
 
   &--pending {
     cursor: default;
@@ -410,12 +425,14 @@ article.hee-post {
 
 .card-meta,
 .hee-related-card .meta,
-.hee-related-date {
+.hee-related-date,
+.hee-related-status {
+  @include muted-small(0.72rem);
   margin-bottom: 0.45rem;
-  color: var(--hee-muted);
-  font-size: 0.72rem;
-  line-height: 1.5;
-  font-family: var(--font-body);
+}
+
+.hee-related-status {
+  letter-spacing: 0.08em;
 }
 
 .card-title,
@@ -434,39 +451,26 @@ article.hee-post {
   line-height: 1.6;
 }
 
-.hee-related-status {
-  margin-bottom: 0.45rem;
-  color: var(--hee-muted);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-}
+/* ========== Footer ========== */
 
-// フッター（Quartz footer + 将来用 hee- ブロック）
-footer {
-  max-width: var(--hee-wide);
-  margin-inline: auto;
-  margin-top: 4rem;
-  padding-top: 1.4rem;
-  border-top: 1px solid var(--hee-line);
-  color: var(--hee-muted);
-  font-size: 0.82rem;
-  font-family: var(--font-body);
-  line-height: 1.5;
-
-  ul {
-    gap: 0.75rem 1.25rem;
-    margin-top: 0.5rem;
-    flex-wrap: wrap;
-  }
-}
-
+footer,
 .hee-footer {
   margin-top: 4rem;
   padding-top: 1.4rem;
   border-top: 1px solid var(--hee-line);
   color: var(--hee-muted);
-  font-size: 0.82rem;
-  font-family: var(--font-body);
+  font: 0.82rem/1.5 var(--font-body);
+}
+
+footer {
+  @include wide-block;
+  margin-inline: auto;
+
+  ul {
+    flex-wrap: wrap;
+    gap: 0.75rem 1.25rem;
+    margin-top: 0.5rem;
+  }
 }
 
 .footer-grid {
@@ -503,17 +507,12 @@ footer {
 }
 
 .hee-footer-latest {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.1rem;
   margin: 1rem 0 1.8rem;
 }
 
 .hee-footer-section {
-  padding: 1rem;
-  border: 1px solid var(--hee-line);
-  border-radius: var(--hee-radius);
-  background: var(--hee-paper);
+  @include hee-card(1rem);
 
   h3 {
     margin: 0 0 0.75rem;
@@ -552,6 +551,35 @@ footer {
   }
 }
 
+/* ========== Mobile ========== */
+
+@media (max-width: 800px) {
+  // .page と #quartz-body の横 padding が重なって左に空きが出るのを抑える
+  .page {
+    padding-inline: 0;
+  }
+
+  .page > #quartz-body {
+    padding-inline: 0.5rem 0.75rem;
+  }
+
+  .sidebar.left {
+    gap: 0.35rem;
+    width: 100%;
+  }
+
+  // タイトルと検索の間の伸縮スペーサーを非表示（幅をタイトルに回す）
+  .sidebar.left .spacer {
+    display: none;
+  }
+
+  .sidebar.left .page-title,
+  .sidebar.left .page-title a {
+    flex-shrink: 0;
+    font-size: clamp(1rem, 3.2vw, 1.15rem);
+  }
+}
+
 @media (max-width: 760px) {
   .center .article-title {
     font-size: 1.65rem;
@@ -581,21 +609,18 @@ footer {
     }
   }
 
-  .info-flow {
-    grid-template-columns: 1fr;
-  }
-
-  .arrow {
-    transform: rotate(90deg);
-    text-align: center;
-  }
-
+  .info-flow,
   .hee-header-nav,
   .hee-header-nav ul,
   .hee-related-grid,
   .footer-grid,
   .hee-footer-latest {
     grid-template-columns: 1fr;
+  }
+
+  .arrow {
+    text-align: center;
+    transform: rotate(90deg);
   }
 
   .hee-infographic {
