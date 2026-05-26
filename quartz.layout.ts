@@ -8,8 +8,13 @@ export const sharedPageComponents: SharedLayout = {
   afterBody: [],
   footer: Component.Footer({
     links: {
-      GitHub: "https://github.com/jackyzha0/quartz",
-      "Discord Community": "https://discord.gg/cRFFHYye7t",
+      "タグ一覧 / Tags": "/tags/",
+      "認知 · 2026-05-26 · 韻を踏む気恥ずかしさは露出感": "/posts/2026-05-26-rhyme-exposure",
+      HOME: "/",
+      posts: "/posts/",
+      About: "/about",
+      Contact: "/contact",
+      "Privacy Policy": "/privacy",
     },
   }),
 }

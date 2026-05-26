@@ -19,15 +19,16 @@ const config: QuartzConfig = {
       provider: "plausible",
     },
     locale: "ja-JP",
-    baseUrl: "enatos.github.io/quartz",
+    baseUrl: "heechoo.com",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "modified",
     theme: {
       fontOrigin: "googleFonts",
       cdnCaching: true,
       typography: {
-        header: "Schibsted Grotesk",
-        body: "Source Sans Pro",
+        title: { name: "Shippori Mincho", weights: [400, 500, 600, 700] },
+        header: { name: "Lora", weights: [400, 500, 600, 700] },
+        body: { name: "Shippori Mincho", weights: [400, 500, 600, 700] },
         code: "IBM Plex Mono",
       },
       colors: {
@@ -90,6 +91,7 @@ const config: QuartzConfig = {
       Plugin.Assets(),
       Plugin.Static(),
       Plugin.Favicon(),
+      Plugin.CNAME(),
       Plugin.NotFoundPage(),
       // Comment out CustomOgImages to speed up build time
       Plugin.CustomOgImages(),
