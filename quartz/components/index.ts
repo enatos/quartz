@@ -1,4 +1,6 @@
 import Content from "./pages/Content"
+import HomeContent from "./pages/HomeContent"
+import HeychoPageBody from "./pages/HeychoPageBody"
 import TagContent from "./pages/TagContent"
 import FolderContent from "./pages/FolderContent"
 import NotFound from "./pages/404"
@@ -27,6 +29,8 @@ import ConditionalRender from "./ConditionalRender"
 export {
   ArticleTitle,
   Content,
+  HomeContent,
+  HeychoPageBody,
   TagContent,
   FolderContent,
   Darkmode,

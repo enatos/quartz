@@ -1,53 +1,64 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
+import { QuartzComponentProps } from "./quartz/components/types"
+
+const notIndex = (page: QuartzComponentProps) => page.fileData.slug !== "index"
+
+function hideOnIndex(component: Parameters<typeof Component.ConditionalRender>[0]["component"]) {
+  return Component.ConditionalRender({ component, condition: notIndex })
+}
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
   afterBody: [],
-  footer: Component.Footer({
-    links: {
-      "タグ一覧 / Tags": "/tags/",
-      "認知 · 2026-05-26 · 韻を踏む気恥ずかしさは露出感": "/posts/2026-05-26-rhyme-exposure",
-      HOME: "/",
-      posts: "/posts/",
-      About: "/about",
-      Contact: "/contact",
-      "Privacy Policy": "/privacy",
-    },
-  }),
+  footer: hideOnIndex(
+    Component.Footer({
+      links: {
+        "タグ一覧 / Tags": "/tags/",
+        "認知 · 2026-05-26 · 韻を踏む気恥ずかしさは露出感": "/posts/2026-05-26-rhyme-exposure",
+        HOME: "/",
+        posts: "/posts/",
+        About: "/about",
+        Contact: "/contact",
+        "Privacy Policy": "/privacy",
+      },
+    }),
+  ),
 }
+
+const sidebarLeft = [
+  Component.PageTitle(),
+  Component.MobileOnly(Component.Spacer()),
+  Component.Flex({
+    components: [
+      {
+        Component: Component.Search(),
+        grow: true,
+      },
+      { Component: Component.Darkmode() },
+      { Component: Component.ReaderMode() },
+    ],
+  }),
+  Component.Explorer(),
+]
 
 // components for pages that display a single page (e.g. a single note)
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
     Component.ConditionalRender({
       component: Component.Breadcrumbs(),
-      condition: (page) => page.fileData.slug !== "index",
+      condition: notIndex,
     }),
-    Component.ArticleTitle(),
-    Component.ContentMeta(),
-    Component.TagList(),
+    hideOnIndex(Component.ArticleTitle()),
+    hideOnIndex(Component.ContentMeta()),
+    hideOnIndex(Component.TagList()),
   ],
-  left: [
-    Component.PageTitle(),
-    Component.MobileOnly(Component.Spacer()),
-    Component.Flex({
-      components: [
-        {
-          Component: Component.Search(),
-          grow: true,
-        },
-        { Component: Component.Darkmode() },
-        { Component: Component.ReaderMode() },
-      ],
-    }),
-    Component.Explorer(),
-  ],
+  left: sidebarLeft.map((c) => hideOnIndex(c)),
   right: [
-    Component.DesktopOnly(Component.TableOfContents()),
-    Component.Backlinks(),
+    hideOnIndex(Component.DesktopOnly(Component.TableOfContents())),
+    hideOnIndex(Component.Backlinks()),
   ],
 }
 
