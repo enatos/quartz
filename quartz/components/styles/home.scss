@@ -35,26 +35,38 @@
   --hee-home-line-soft: rgba(80, 74, 62, 0.07);
 
   width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
   color: var(--hee-ink);
   font-family: var(--font-site);
   font-weight: 400;
   line-height: 1.7;
 }
 
+/* 2カラムラッパー */
 .hee-home-layout {
-  display: flex;
-  min-height: calc(100vh - 0px);
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
-/* ---------- 左ナビ ---------- */
-
+/* 左ナビ */
 .hee-home-sidebar {
+  position: relative;
+  z-index: 1;
   display: flex;
-  width: var(--hee-home-nav-w);
-  flex: none;
   flex-direction: column;
   gap: 3rem;
+  width: var(--hee-home-nav-w);
+  flex-shrink: 0;
+  height: 100vh;
+  overflow-y: auto;
   padding: 3.5rem 2.5rem 3rem;
+  background: var(--hee-soft-2);
 }
 
 .hee-home-brand {
@@ -194,55 +206,102 @@
   letter-spacing: 0.02em;
 }
 
-/* ---------- 右メインビジュアル ---------- */
-
+/* 右メインビジュアル（PC：全画面背景） */
 .hee-home-main {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  padding: 3.5rem 4rem 3.5rem 1.5rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
   animation: hee-home-fade 1.4s 0.2s ease both;
 
   figure {
+    position: absolute;
+    inset: 0;
     width: 100%;
-    max-width: 55rem;
+    height: 100%;
     margin: 0;
+    padding: 0;
   }
 
   img {
     display: block;
     width: 100%;
-    height: auto;
-    mix-blend-mode: multiply;
+    height: 100%;
+    margin: 0;
+    border-radius: 0;
+    object-fit: cover;
+    vertical-align: top;
   }
 }
 
 /* ---------- スマホ（短冊） ---------- */
 
 @media (max-width: 900px) {
+  html,
+  body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  .hee-home {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  /* 縦積みに切り替え */
   .hee-home-layout {
+    display: flex !important;
     flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
   }
 
+  /* ビジュアルを先頭（上）に */
   .hee-home-main {
-    order: -1;
-    width: 100%;
-    max-width: 35rem;
-    margin: 0 auto;
-    padding: 2.125rem 1.625rem 0.875rem;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    order: -1 !important;
+    z-index: 0 !important;
+    padding: 0;
+    animation: none;
+
+    figure {
+      position: static !important;
+      inset: auto !important;
+      width: 100% !important;
+      height: auto !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    img {
+      position: static !important;
+      width: 100% !important;
+      height: auto !important;
+      margin: 0 !important;
+      border-radius: 0 !important;
+      object-fit: contain !important;
+      vertical-align: top;
+    }
   }
 
-  .hee-home-main figure {
-    max-width: 100%;
-  }
-
+  /* サイドバーをナビに */
   .hee-home-sidebar {
+    position: static;
     width: 100%;
     max-width: 35rem;
+    height: auto;
     margin: 0 auto;
+    overflow-y: visible;
     gap: 2.25rem;
     padding: 0.875rem 1.875rem 3.5rem;
+    background: transparent;
   }
 
   .hee-home-cats {
@@ -287,43 +346,71 @@
   .hee-home-sidebar {
     padding-inline: 1.375rem;
   }
-
-  .hee-home-main {
-    padding-inline: 1.125rem;
-  }
 }
 
 /* ---------- Quartz トップ専用：グリッド解除 ---------- */
 
+html:has(.homepage),
+html[data-slug="index"] {
+  margin: 0;
+  padding: 0;
+}
+
+body:has(.homepage),
 body[data-slug="index"] {
-  #quartz-root.page {
-    max-width: none;
-    background: var(--hee-soft-2);
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden;
+
+  #quartz-root {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
-  .page > #quartz-body {
-    display: block;
-    padding: 0;
+  #quartz-body {
+    display: block !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   .sidebar.left,
   .sidebar.right {
-    display: none;
+    display: none !important;
   }
 
   .center {
-    width: 100%;
-    max-width: none;
-    padding: 0;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 100vh;
   }
 
-  .center > hr,
+  header,
   .page-header,
-  .page-footer {
-    display: none;
+  .center > hr,
+  .page-footer,
+  footer {
+    display: none !important;
   }
 
-  footer {
-    display: none;
+  article.hee-home {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+@media (max-width: 900px) {
+  body:has(.homepage),
+  body[data-slug="index"] {
+    overflow: visible !important;
+
+    .center {
+      height: auto !important;
+    }
   }
 }

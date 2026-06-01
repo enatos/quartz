@@ -130,7 +130,7 @@ const HomeContent: QuartzComponent = ({ allFiles, fileData, cfg }: QuartzCompone
   const visualSrc = resolveRelative(fileData.slug!, "media/main-visual.png" as FullSlug)
 
   return (
-    <article class="hee-home">
+    <article class="hee-home homepage">
       <h1 class="hee-sr-only">へーちょー — あとから見て「へー」って思うメモ帳</h1>
       <div class="hee-home-layout">
         <aside class="hee-home-sidebar">
