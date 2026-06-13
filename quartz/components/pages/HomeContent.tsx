@@ -14,9 +14,12 @@ const HEE_CATEGORIES = [
 
 type HeeCategory = (typeof HEE_CATEGORIES)[number]["id"]
 
+const HEE_CATEGORY_FOLDERS = ["logos", "design", "perception"] as const
+
 function isHeychoPost(file: QuartzPluginData): boolean {
   const slug = file.slug ?? ""
-  if (!slug.startsWith("posts/")) return false
+  const folder = slug.split("/")[0]
+  if (!HEE_CATEGORY_FOLDERS.includes(folder as (typeof HEE_CATEGORY_FOLDERS)[number])) return false
   if (slug.endsWith("/index")) return false
   return true
 }
