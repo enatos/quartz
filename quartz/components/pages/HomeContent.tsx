@@ -130,27 +130,27 @@ const HomeContent: QuartzComponent = ({ allFiles, fileData, cfg }: QuartzCompone
   const visualSrc = resolveRelative(fileData.slug!, "media/main-visual.png" as FullSlug)
 
   return (
-    <article class="hee-home homepage">
-      <h1 class="hee-sr-only">へーちょー — あとから見て「へー」って思うメモ帳</h1>
-      <div class="hee-home-layout">
-        <aside class="hee-home-sidebar">
-          <div class="hee-home-brand">
-            <div class="hee-home-brand-title">へーちょー</div>
-            <div class="hee-home-brand-sub">あとから見て「へー」って思うメモ帳</div>
+    <article class="heechoo-home homepage">
+      <h1 class="heechoo-sr-only">へーちょー — あとから見て「へー」って思うメモ帳</h1>
+      <div class="heechoo-home-layout">
+        <aside class="heechoo-home-sidebar">
+          <div class="heechoo-home-brand">
+            <div class="heechoo-home-brand-title">へーちょー</div>
+            <div class="heechoo-home-brand-sub">あとから見て「へー」って思うメモ帳</div>
           </div>
 
-          <nav class="hee-home-cats" id="hee-home-cats" aria-label="カテゴリ">
-            <button type="button" class="hee-home-cat active" data-cat="all">
+          <nav class="heechoo-home-cats" id="heechoo-home-cats" aria-label="カテゴリ">
+            <button type="button" class="heechoo-home-cat heechoo-home-cat--active" data-cat="all">
               すべて
             </button>
             {HEE_CATEGORIES.map(({ id, en }) => (
-              <button type="button" class="hee-home-cat" data-cat={id}>
-                {id} <span class="hee-home-en">{en}</span>
+              <button type="button" class="heechoo-home-cat" data-cat={id}>
+                {id} <span class="heechoo-home-en">{en}</span>
               </button>
             ))}
           </nav>
 
-          <div class="hee-home-cards" id="hee-home-cards" aria-label="コンテンツ一覧">
+          <div class="heechoo-home-cards" id="heechoo-home-cards" aria-label="コンテンツ一覧">
             {posts.map((post) => {
               const category = parseCategory(post.frontmatter)
               const date = getDate(cfg, post)
@@ -167,21 +167,21 @@ const HomeContent: QuartzComponent = ({ allFiles, fileData, cfg }: QuartzCompone
 
               return (
                 <a
-                  class="hee-home-card"
+                  class="heechoo-home-card"
                   href={resolveRelative(fileData.slug!, post.slug!)}
                   data-cat={category ?? ""}
                 >
-                  <span class="hee-home-card-thumb" aria-hidden="true">
+                  <span class="heechoo-home-card-thumb" aria-hidden="true">
                     {thumbSrc ? (
                       <img src={thumbSrc} alt="" loading="lazy" />
                     ) : (
                       thumbSvg(category)
                     )}
                   </span>
-                  <span class="hee-home-card-body">
-                    <span class="hee-home-card-title">{post.frontmatter!.title}</span>
+                  <span class="heechoo-home-card-body">
+                    <span class="heechoo-home-card-title">{post.frontmatter!.title}</span>
                     {metaParts.length > 0 && (
-                      <span class="hee-home-card-meta">{metaParts.join(" ・ ")}</span>
+                      <span class="heechoo-home-card-meta">{metaParts.join(" ・ ")}</span>
                     )}
                   </span>
                 </a>
@@ -190,7 +190,7 @@ const HomeContent: QuartzComponent = ({ allFiles, fileData, cfg }: QuartzCompone
           </div>
         </aside>
 
-        <main class="hee-home-main">
+        <main class="heechoo-home-main">
           <figure>
             <img
               src={visualSrc}

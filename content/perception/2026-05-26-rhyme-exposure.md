@@ -10,20 +10,20 @@ tags:
   - 俳句
 moon: 9.3
 cssclasses:
-  - hee-post
+  - heechoo-post
 ---
 
-<p class="lead">俳句と日本語ラップに感じる、あの妙な気恥ずかしさ。その正体を、音・韻・露出感から考える。</p>
+<p class="heechoo-lead">俳句と日本語ラップに感じる、あの妙な気恥ずかしさ。その正体を、音・韻・露出感から考える。</p>
 
-<div class="hee-meta">
+<div class="heechoo-meta">
   <span>日付：2026-05-26</span>
   <span>月齢：9.3</span>
   <span>カテゴリ：認知 Perception</span>
   <span>タグ：思考構造、内省、俳句</span>
 </div>
 
-<div class="hee-hero" role="region" aria-label="記事の導入を示す装飾領域">
-  <div class="hero-caption">rhyme / voice / exposure</div>
+<div class="heechoo-hero" role="region" aria-label="記事の導入を示す装飾領域">
+  <div class="heechoo-hero-caption">rhyme / voice / exposure</div>
 </div>
 
 最近、少しだけ俳句に興味がある。
@@ -107,42 +107,42 @@ cssclasses:
 偏見だけど、  
 あんましなそう。
 
-<section class="hee-infographic" aria-label="思考プロセスの図解">
-  <div class="info-flow">
-    <div class="info-node">俳句・ラップ<br>なんか恥ずかしい</div>
-    <div class="arrow">→</div>
-    <div class="info-node">アクセント？<br>型？ 歌詞？</div>
-    <div class="arrow">→</div>
-    <div class="info-node dark">韻＝音の露出感</div>
+<section class="heechoo-infographic" aria-label="思考プロセスの図解">
+  <div class="heechoo-info-flow">
+    <div class="heechoo-info-node">俳句・ラップ<br>なんか恥ずかしい</div>
+    <div class="heechoo-arrow">→</div>
+    <div class="heechoo-info-node">アクセント？<br>型？ 歌詞？</div>
+    <div class="heechoo-arrow">→</div>
+    <div class="heechoo-info-node heechoo-info-node--dark">韻＝音の露出感</div>
   </div>
-  <p class="caption">気恥ずかしさの候補を削っていくと、最後に「韻を踏む音の生っぽさ」が残った。</p>
+  <p class="heechoo-caption">気恥ずかしさの候補を削っていくと、最後に「韻を踏む音の生っぽさ」が残った。</p>
 </section>
 
-<section class="related" aria-label="関連記事">
+<section class="heechoo-related" aria-label="関連記事">
   <h2>関連記事</h2>
-  <div class="hee-related-grid">
-    <div class="hee-related-card hee-related-card--pending">
-      <div class="hee-related-status">準備中</div>
-      <div class="card-img"></div>
-      <div class="card-body">
-        <div class="card-meta">認知 Perception｜2026.05</div>
-        <p class="card-title">気恥ずかしさは、どこから来るのか</p>
+  <div class="heechoo-related-grid">
+    <div class="heechoo-related-card heechoo-related-card--pending">
+      <div class="heechoo-related-status">準備中</div>
+      <div class="heechoo-card-img"></div>
+      <div class="heechoo-card-body">
+        <div class="heechoo-card-meta">認知 Perception｜2026.05</div>
+        <p class="heechoo-card-title">気恥ずかしさは、どこから来るのか</p>
       </div>
     </div>
-    <div class="hee-related-card hee-related-card--pending">
-      <div class="hee-related-status">準備中</div>
-      <div class="card-img"></div>
-      <div class="card-body">
-        <div class="card-meta">言葉 Logos｜2026.05</div>
-        <p class="card-title">言葉のリズムと、意味の流れ</p>
+    <div class="heechoo-related-card heechoo-related-card--pending">
+      <div class="heechoo-related-status">準備中</div>
+      <div class="heechoo-card-img"></div>
+      <div class="heechoo-card-body">
+        <div class="heechoo-card-meta">言葉 Logos｜2026.05</div>
+        <p class="heechoo-card-title">言葉のリズムと、意味の流れ</p>
       </div>
     </div>
-    <div class="hee-related-card hee-related-card--pending">
-      <div class="hee-related-status">準備中</div>
-      <div class="card-img"></div>
-      <div class="card-body">
-        <div class="card-meta">意図 Design｜2026.05</div>
-        <p class="card-title">型に入れると、なぜ意図が見えるのか</p>
+    <div class="heechoo-related-card heechoo-related-card--pending">
+      <div class="heechoo-related-status">準備中</div>
+      <div class="heechoo-card-img"></div>
+      <div class="heechoo-card-body">
+        <div class="heechoo-card-meta">意図 Design｜2026.05</div>
+        <p class="heechoo-card-title">型に入れると、なぜ意図が見えるのか</p>
       </div>
     </div>
   </div>

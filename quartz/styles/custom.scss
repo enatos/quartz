@@ -1,11 +1,12 @@
 @use "./base.scss";
+@use "./heechoo-ui.scss";
 
 /* へーちょー — Quartz 本番用
    - Quartz標準DOMは必要最小限だけ上書き
-   - 独自部品は .hee-* に集約
+   - 共通UIは heechoo-ui.scss（.heechoo-*）
 */
 
-/* ========== Tokens ========== */
+/* ========== Tokens（共通変数の拡張） ========== */
 
 :root {
   --font-site: "Shippori Mincho", serif;
@@ -16,60 +17,59 @@
   --headerFont: var(--font-body);
   --bodyFont: var(--font-body);
 
-  --hee-bg: #f8f6f1;
-  --hee-paper: #fffdfa;
-  --hee-ink: #262626;
-  --hee-muted: #706d68;
-  --hee-line: #ddd7cf;
-  --hee-soft: #efebe4;
-  --hee-soft-2: #f4f0e9;
-  --hee-accent: #81786d;
+  /* トーン調整用（HEX直書き禁止のため color-mix で生成） */
+  --heechoo-surface-soft: color-mix(in srgb, var(--heechoo-border) 35%, var(--heechoo-bg));
+  --heechoo-surface-muted: color-mix(in srgb, var(--heechoo-border) 18%, var(--heechoo-bg));
+  --heechoo-accent: color-mix(in srgb, var(--heechoo-muted) 55%, var(--heechoo-text));
 
-  --hee-radius: 12px;
-  --hee-measure: 43rem;
-  --hee-wide: 58rem;
+  --heechoo-measure: 720px;
+  --heechoo-wide-max: 1200px;
 }
 
 /* ========== Mixins ========== */
 
-@mixin hee-card($padding: null) {
-  border: 1px solid var(--hee-line);
-  border-radius: var(--hee-radius);
-  background: var(--hee-paper);
+@mixin heechoo-surface($padding: null) {
+  border: 1px solid var(--heechoo-border);
+  border-radius: 14px;
+  background: var(--heechoo-bg);
 
   @if $padding != null {
     padding: $padding;
   }
 }
 
-@mixin hee-hover {
+@mixin heechoo-hover {
   transition: border-color 160ms ease, transform 160ms ease, background 160ms ease;
 
   &:hover {
-    border-color: var(--hee-accent);
-    background: var(--hee-soft-2);
+    border-color: var(--heechoo-accent);
+    background: var(--heechoo-surface-muted);
     transform: translateY(-1px);
   }
 }
 
 @mixin muted-small($size: 0.82rem) {
-  color: var(--hee-muted);
+  color: var(--heechoo-muted);
   font: #{$size}/1.6 var(--font-body);
   letter-spacing: 0.04em;
 }
 
 @mixin wide-block {
-  width: min(100%, var(--hee-wide));
-  max-width: var(--hee-wide);
+  width: min(100%, var(--heechoo-wide-max));
+  max-width: var(--heechoo-wide-max);
 }
 
 /* ========== Quartz Base Override ========== */
 
 #quartz-root.page {
   background:
-    radial-gradient(circle at 20% 0%, rgba(255, 255, 255, 0.8), transparent 34rem),
-    var(--hee-bg);
-  color: var(--hee-ink);
+    radial-gradient(
+      circle at 20% 0%,
+      color-mix(in srgb, var(--heechoo-bg) 92%, var(--heechoo-border)),
+      transparent 34rem
+    ),
+    var(--heechoo-bg);
+  color: var(--heechoo-text);
   font-family: var(--font-body);
   letter-spacing: 0.025em;
   line-height: 1.95;
@@ -85,8 +85,11 @@
   padding-inline: clamp(1rem, 3vw, 2rem);
 
   .center > article {
-    @include wide-block;
     margin-inline: auto;
+
+    &:not(.heechoo-content) {
+      @include wide-block;
+    }
 
     h2,
     h3,
@@ -107,7 +110,7 @@
 }
 
 .center {
-  &:has(article .hee-meta) {
+  &:has(article .heechoo-meta) {
     .content-meta,
     ul.tags {
       display: none;
@@ -115,9 +118,9 @@
   }
 
   .article-title {
-    max-width: var(--hee-measure);
+    max-width: var(--heechoo-measure);
     margin: 2.5rem 0 0;
-    color: var(--hee-ink);
+    color: var(--heechoo-text);
     font: 500 clamp(2rem, 5vw, 3.15rem) / 1.45 var(--font-title);
     letter-spacing: 0.055em;
   }
@@ -133,7 +136,7 @@ body[data-slug="index"] {
 
 /* ========== Home ========== */
 
-.hee-header-nav {
+.heechoo-header-nav {
   @include wide-block;
   margin: 2.25rem 0 3rem;
 
@@ -155,10 +158,10 @@ body[data-slug="index"] {
   }
 
   a {
-    @include hee-card(1rem 1.05rem);
-    @include hee-hover;
+    @include heechoo-surface(1rem 1.05rem);
+    @include heechoo-hover;
     display: block;
-    color: var(--hee-ink);
+    color: var(--heechoo-text);
     text-decoration: none;
   }
 
@@ -178,13 +181,13 @@ body[data-slug="index"] {
 
   small,
   .desc {
-    color: var(--hee-muted);
+    color: var(--heechoo-muted);
     font-size: 0.78rem;
     line-height: 1.7;
   }
 }
 
-.hee-categories .hee-en {
+.heechoo-categories .heechoo-en {
   margin-left: 0.25rem;
   font-size: 0.9em;
   opacity: 0.7;
@@ -192,15 +195,14 @@ body[data-slug="index"] {
 
 /* ========== Article ========== */
 
-article .lead,
-.hee-lead {
-  max-width: var(--hee-measure);
+.heechoo-lead {
+  max-width: var(--heechoo-measure);
   margin: 1.2rem 0 0;
-  color: var(--hee-muted);
+  color: var(--heechoo-muted);
   font-size: 0.98rem;
 }
 
-.hee-meta {
+.heechoo-meta {
   @include muted-small;
   display: flex;
   flex-wrap: wrap;
@@ -208,7 +210,7 @@ article .lead,
   align-items: center;
   margin: 1.8rem 0;
   padding: 0.75rem 0;
-  border-block: 1px solid var(--hee-line);
+  border-block: 1px solid var(--heechoo-border);
 
   span,
   > * {
@@ -217,28 +219,42 @@ article .lead,
     gap: 0.3rem;
   }
 
-  .hee-meta-sep {
+  .heechoo-meta-sep {
     opacity: 0.35;
   }
 }
 
-.hee-hero {
-  @include hee-card;
+.heechoo-hero {
+  @include heechoo-surface;
   position: relative;
   width: 100%;
   min-height: clamp(190px, 30vw, 340px);
   margin: 1.7rem 0 2.6rem;
   overflow: hidden;
+  /* 装飾用グラデーション — ヒーロー専用のため color-mix でトークンから生成 */
   background:
-    radial-gradient(circle at 63% 58%, rgba(38, 38, 38, 0.18) 0 3.4rem, transparent 3.5rem),
-    radial-gradient(circle at 38% 48%, rgba(38, 38, 38, 0.075) 0 0.18rem, transparent 0.2rem),
-    linear-gradient(135deg, #ebe8e2 0%, #fdfbf6 44%, #d9d6cf 100%);
+    radial-gradient(
+      circle at 63% 58%,
+      color-mix(in srgb, var(--heechoo-text) 18%, transparent) 0 3.4rem,
+      transparent 3.5rem
+    ),
+    radial-gradient(
+      circle at 38% 48%,
+      color-mix(in srgb, var(--heechoo-text) 8%, transparent) 0 0.18rem,
+      transparent 0.2rem
+    ),
+    linear-gradient(
+      135deg,
+      var(--heechoo-surface-soft) 0%,
+      var(--heechoo-bg) 44%,
+      var(--heechoo-border) 100%
+    );
 
   &::before,
   &::after {
     content: "";
     position: absolute;
-    border: 1px solid rgba(38, 38, 38, 0.16);
+    border: 1px solid color-mix(in srgb, var(--heechoo-text) 16%, transparent);
     border-radius: 999px;
     transform: rotate(-14deg);
   }
@@ -265,23 +281,22 @@ article .lead,
     filter: saturate(0.72) contrast(0.96);
   }
 
-  .hero-caption,
-  .hee-hero-caption {
+  .heechoo-hero-caption {
     position: absolute;
     left: 1.1rem;
     bottom: 0.85rem;
-    color: rgba(38, 38, 38, 0.54);
+    color: color-mix(in srgb, var(--heechoo-text) 54%, transparent);
     font: 0.76rem var(--font-body);
     letter-spacing: 0.06em;
   }
 }
 
-article.hee-post {
+article.heechoo-post {
   margin-top: 0;
 
   p,
   h2 {
-    max-width: var(--hee-measure);
+    max-width: var(--heechoo-measure);
   }
 
   p {
@@ -293,22 +308,25 @@ article.hee-post {
   h2 {
     margin: 3.4rem 0 1.2rem;
     padding-top: 1.2rem;
-    border-top: 1px solid var(--hee-line);
-    color: var(--hee-ink);
+    border-top: 1px solid var(--heechoo-border);
+    color: var(--heechoo-text);
     font: 500 1.45rem / 1.6 var(--font-title);
     letter-spacing: 0.06em;
   }
 
   strong {
     font-weight: 700;
-    background: linear-gradient(transparent 62%, rgba(129, 120, 109, 0.16) 62%);
+    background: linear-gradient(
+      transparent 62%,
+      color-mix(in srgb, var(--heechoo-accent) 16%, transparent) 62%
+    );
   }
 }
 
 /* ========== Figure / Infographic ========== */
 
-.hee-infographic {
-  @include hee-card(clamp(1.1rem, 3vw, 2rem));
+.heechoo-infographic {
+  @include heechoo-surface(clamp(1.1rem, 3vw, 2rem));
   @include wide-block;
   margin: 3rem 0;
 
@@ -320,41 +338,40 @@ article.hee-post {
   }
 }
 
-.info-flow {
+.heechoo-info-flow {
   display: grid;
   grid-template-columns: 1fr auto 1fr auto 1fr;
   gap: 1rem;
   align-items: center;
 }
 
-.info-node {
+.heechoo-info-node {
   display: grid;
   min-height: 8rem;
   place-items: center;
   padding: 1rem;
-  border: 1px solid var(--hee-line);
+  border: 1px solid var(--heechoo-border);
   border-radius: 999px;
-  background: var(--hee-soft-2);
+  background: var(--heechoo-surface-muted);
   text-align: center;
   font-size: 0.92rem;
   line-height: 1.7;
 
-  &.dark {
-    border-color: var(--hee-ink);
-    background: var(--hee-ink);
-    color: var(--hee-paper);
+  &--dark {
+    border-color: var(--heechoo-text);
+    background: var(--heechoo-text);
+    color: var(--heechoo-bg);
   }
 }
 
-.arrow {
-  color: var(--hee-muted);
+.heechoo-arrow {
+  color: var(--heechoo-muted);
   font-size: 1.6rem;
 }
 
-.caption,
-.hee-infographic figcaption,
-.hee-infographic .caption,
-.hee-infographic-caption {
+.heechoo-caption,
+.heechoo-infographic figcaption,
+.heechoo-infographic-caption {
   @include muted-small(0.78rem);
   margin: 1rem 0 0;
   text-align: center;
@@ -362,7 +379,7 @@ article.hee-post {
 
 /* ========== Related Cards ========== */
 
-.related {
+.heechoo-related {
   @include wide-block;
   margin: 4rem 0 2rem;
 
@@ -376,32 +393,32 @@ article.hee-post {
   }
 }
 
-.hee-related-grid,
-.hee-footer-latest {
+.heechoo-related-grid,
+.heechoo-footer-latest {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.hee-related-grid {
+.heechoo-related-grid {
   gap: 1rem;
 }
 
-.hee-related-card {
-  @include hee-card;
-  @include hee-hover;
+.heechoo-related-card {
+  @include heechoo-surface;
+  @include heechoo-hover;
   display: flex;
   min-height: 12rem;
   flex-direction: column;
   overflow: hidden;
-  color: var(--hee-ink);
+  color: var(--heechoo-text);
   text-decoration: none;
 
   &--pending {
     cursor: default;
 
     &:hover {
-      border-color: var(--hee-line);
-      background: var(--hee-paper);
+      border-color: var(--heechoo-border);
+      background: var(--heechoo-bg);
       transform: none;
     }
   }
@@ -414,39 +431,42 @@ article.hee-post {
   }
 }
 
-.card-img {
+.heechoo-card-img {
   height: 5rem;
-  background: linear-gradient(135deg, #e8e4dc, #faf8f3 48%, #d8d3ca);
+  background: linear-gradient(
+    135deg,
+    var(--heechoo-surface-soft),
+    var(--heechoo-bg) 48%,
+    var(--heechoo-border)
+  );
 }
 
-.card-body {
+.heechoo-card-body {
   padding: 0.9rem;
 }
 
-.card-meta,
-.hee-related-card .meta,
-.hee-related-date,
-.hee-related-status {
+.heechoo-card-meta,
+.heechoo-related-date,
+.heechoo-related-status {
   @include muted-small(0.72rem);
   margin-bottom: 0.45rem;
 }
 
-.hee-related-status {
+.heechoo-related-status {
   letter-spacing: 0.08em;
 }
 
-.card-title,
-.hee-related-card .title,
-.hee-related-title {
+.heechoo-card-title,
+.heechoo-related-title {
   margin: 0;
   font-size: 0.95rem;
   line-height: 1.65;
   letter-spacing: 0.035em;
 }
 
-.hee-related-desc {
+.heechoo-related-desc {
   margin-top: 0.35rem;
-  color: var(--hee-muted);
+  color: var(--heechoo-muted);
   font-size: 0.85rem;
   line-height: 1.6;
 }
@@ -454,11 +474,11 @@ article.hee-post {
 /* ========== Footer ========== */
 
 footer,
-.hee-footer {
+.heechoo-footer {
   margin-top: 4rem;
   padding-top: 1.4rem;
-  border-top: 1px solid var(--hee-line);
-  color: var(--hee-muted);
+  border-top: 1px solid var(--heechoo-border);
+  color: var(--heechoo-muted);
   font: 0.82rem/1.5 var(--font-body);
 }
 
@@ -480,17 +500,17 @@ footer {
 }
 
 .footer-links,
-.hee-footer-links {
+.heechoo-footer-links {
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem 1rem;
 
   a {
-    color: var(--hee-muted);
+    color: var(--heechoo-muted);
   }
 }
 
-.hee-tag-list {
+.heechoo-tag-list {
   display: flex;
   flex-wrap: wrap;
   gap: 0.45rem;
@@ -498,21 +518,21 @@ footer {
 
   a {
     padding: 0.26rem 0.55rem;
-    border: 1px solid var(--hee-line);
+    border: 1px solid var(--heechoo-border);
     border-radius: 999px;
-    color: var(--hee-muted);
+    color: var(--heechoo-muted);
     font-size: 0.76rem;
     text-decoration: none;
   }
 }
 
-.hee-footer-latest {
+.heechoo-footer-latest {
   gap: 1.1rem;
   margin: 1rem 0 1.8rem;
 }
 
-.hee-footer-section {
-  @include hee-card(1rem);
+.heechoo-footer-section {
+  @include heechoo-surface(1rem);
 
   h3 {
     margin: 0 0 0.75rem;
@@ -531,7 +551,7 @@ footer {
     grid-template-columns: 5.6rem 1fr;
     gap: 0.6rem;
     padding: 0.45rem 0;
-    border-top: 1px solid var(--hee-line);
+    border-top: 1px solid var(--heechoo-border);
     font-size: 0.78rem;
     line-height: 1.55;
 
@@ -541,12 +561,12 @@ footer {
   }
 
   time {
-    color: var(--hee-muted);
+    color: var(--heechoo-muted);
     font-variant-numeric: tabular-nums;
   }
 
   a {
-    color: var(--hee-ink);
+    color: var(--heechoo-text);
     text-decoration: none;
   }
 }
@@ -585,12 +605,12 @@ footer {
     font-size: 1.65rem;
   }
 
-  .hee-meta {
+  .heechoo-meta {
     gap: 0.35rem 0.75rem;
     font-size: 0.78rem;
   }
 
-  .hee-hero {
+  .heechoo-hero {
     min-height: 230px;
 
     img {
@@ -598,7 +618,7 @@ footer {
     }
   }
 
-  article.hee-post {
+  article.heechoo-post {
     p {
       font-size: 0.96rem;
     }
@@ -609,30 +629,30 @@ footer {
     }
   }
 
-  .info-flow,
-  .hee-header-nav,
-  .hee-header-nav ul,
-  .hee-related-grid,
+  .heechoo-info-flow,
+  .heechoo-header-nav,
+  .heechoo-header-nav ul,
+  .heechoo-related-grid,
   .footer-grid,
-  .hee-footer-latest {
+  .heechoo-footer-latest {
     grid-template-columns: 1fr;
   }
 
-  .arrow {
+  .heechoo-arrow {
     text-align: center;
     transform: rotate(90deg);
   }
 
-  .hee-infographic {
+  .heechoo-infographic {
     margin: 2rem 0;
     padding: 1rem;
   }
 
-  .hee-related-card {
+  .heechoo-related-card {
     min-height: auto;
   }
 
-  .hee-footer-section li {
+  .heechoo-footer-section li {
     grid-template-columns: 5rem 1fr;
   }
 }

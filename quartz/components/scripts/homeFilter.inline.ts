@@ -1,23 +1,23 @@
 function setupHomeFilter() {
-  const cats = document.getElementById("hee-home-cats")
-  const cardsRoot = document.getElementById("hee-home-cards")
+  const cats = document.getElementById("heechoo-home-cats")
+  const cardsRoot = document.getElementById("heechoo-home-cards")
   if (!cats || !cardsRoot) return
 
-  const cards = Array.from(cardsRoot.querySelectorAll<HTMLElement>(".hee-home-card"))
+  const cards = Array.from(cardsRoot.querySelectorAll<HTMLElement>(".heechoo-home-card"))
 
   const onClick = (e: Event) => {
-    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>(".hee-home-cat")
+    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>(".heechoo-home-cat")
     if (!btn || !cats.contains(btn)) return
 
     const selected = btn.getAttribute("data-cat") ?? "all"
-    cats.querySelectorAll(".hee-home-cat").forEach((b) => {
-      b.classList.toggle("active", b === btn)
+    cats.querySelectorAll(".heechoo-home-cat").forEach((b) => {
+      b.classList.toggle("heechoo-home-cat--active", b === btn)
     })
 
     cards.forEach((card) => {
       const cat = card.getAttribute("data-cat") ?? ""
       const show = selected === "all" || cat === selected
-      card.classList.toggle("hide", !show)
+      card.classList.toggle("heechoo-home-card--hidden", !show)
     })
   }
 

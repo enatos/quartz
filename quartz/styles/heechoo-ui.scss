@@ -1,0 +1,87 @@
+/* へーちょー共通UIルール v0.1 */
+
+:root {
+  --heechoo-bg: #ffffff;
+  --heechoo-text: #222533;
+  --heechoo-muted: #8b9d9b;
+  --heechoo-border: #e6e1dc;
+  --heechoo-link: #8b9d9b;
+}
+
+.heechoo-content {
+  color: var(--heechoo-text);
+  line-height: 1.9;
+  width: min(100%, 720px);
+  margin-inline: auto;
+}
+
+.heechoo-content h1,
+.heechoo-content h2,
+.heechoo-content h3 {
+  color: var(--heechoo-text);
+}
+
+.heechoo-content a {
+  color: var(--heechoo-link);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.heechoo-wide {
+  width: min(100%, 1200px);
+  margin-inline: auto;
+}
+
+.heechoo-meta {
+  color: var(--heechoo-muted);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.heechoo-card {
+  border: 1px solid var(--heechoo-border);
+  border-radius: 14px;
+  padding: 1.25rem;
+}
+
+.heechoo-divider {
+  border: 0;
+  border-top: 1px solid var(--heechoo-border);
+  margin-block: 2rem;
+}
+
+.heechoo-nav-link {
+  color: var(--heechoo-text);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.heechoo-nav-link:hover {
+  border-bottom-color: var(--heechoo-muted);
+}
+
+.heechoo-nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+
+.heechoo-section {
+  margin-block: 2.5rem;
+}
+
+.heechoo-section-inner {
+  padding-inline: 1.25rem;
+}
+
+.heechoo-layout {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .heechoo-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
