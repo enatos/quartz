@@ -656,3 +656,10 @@ footer {
     grid-template-columns: 5rem 1fr;
   }
 }
+
+// 左ナビ Explorer のデスクトップ用トグルボタン（空ラベル＋折りたたみ矢印）を非表示
+// explorer.scss の「.explorer button.desktop-explorer { display: flex }」より
+// 詳細度を高くして上書きする（モバイル用トグル .mobile-explorer は残す）
+.explorer button.desktop-explorer.title-button {
+  display: none;
+}

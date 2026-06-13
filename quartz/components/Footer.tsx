@@ -19,6 +19,13 @@ export default ((opts?: Options) => {
     )
     return (
       <footer class={`${displayClass ?? ""}`}>
+        <ul>
+          {Object.entries(links).map(([text, link]) => (
+            <li>
+              <a href={link}>{text}</a>
+            </li>
+          ))}
+        </ul>
         <p>
           {opts?.creditName ? (
             <>
@@ -30,13 +37,6 @@ export default ((opts?: Options) => {
             </>
           )}
         </p>
-        <ul>
-          {Object.entries(links).map(([text, link]) => (
-            <li>
-              <a href={link}>{text}</a>
-            </li>
-          ))}
-        </ul>
       </footer>
     )
   }

@@ -40,10 +40,6 @@ export const sharedPageComponents: SharedLayout = {
     Component.Footer({
       creditName: "ねこたこ",
       links: {
-        "言葉 Logos": "/logos/",
-        "意図 Design": "/design/",
-        "認知 Perception": "/perception/",
-        "タグ一覧 / Tags": "/tags/",
         HOME: "/",
         About: "/about",
         Contact: "/contact",
