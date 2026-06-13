@@ -17,6 +17,8 @@ description: 記事一覧
 
 意図と形。置き方の話。
 
+- [[posts/2026-06-13-nekotako-ai-team-origin|ねこたこAIチームの起源と変遷]]
+
 ## 認知 <span class="hee-en">Perception</span> {#perception}
 
 見え方の差分。気づいたところ。
