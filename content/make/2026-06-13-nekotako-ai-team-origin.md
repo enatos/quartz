@@ -3,7 +3,8 @@ title: ねこたこAIチームの起源と変遷
 description: なびさん、くろさん、ジェミさんたちとの出会いから、AIギルド、そしてねこたこシティへ広がっていくまでの記録。
 date: 2026-06-13
 draft: false
-category: 意図 Design
+category: いろいろつくってみる
+aliases: ["design/2026-06-13-nekotako-ai-team-origin"]
 tags:
   - AIチーム
   - フラット
@@ -19,7 +20,7 @@ cssclasses:
 <div class="hee-meta">
   <span>日付：2026-06-13</span>
   <span>月齢：27.3</span>
-  <span>カテゴリ：意図 Design</span>
+  <span>カテゴリ：いろいろつくってみる</span>
   <span>タグ：AIチーム、フラット、母艦、へーちょー</span>
 </div>
 

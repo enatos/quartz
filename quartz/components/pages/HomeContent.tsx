@@ -2,24 +2,15 @@ import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } fro
 import { FullSlug, resolveRelative } from "../../util/path"
 import { QuartzPluginData } from "../../plugins/vfile"
 import { getDate } from "../Date"
+import { HEE_CATEGORIES, HEE_CATEGORY_FOLDERS, type HeeCategory } from "../../heeCategories"
 import style from "../styles/home.scss"
 // @ts-ignore
 import homeFilterScript from "../scripts/homeFilter.inline"
 
-const HEE_CATEGORIES = [
-  { id: "言葉", en: "Logos" },
-  { id: "意図", en: "Design" },
-  { id: "認知", en: "Perception" },
-] as const
-
-type HeeCategory = (typeof HEE_CATEGORIES)[number]["id"]
-
-const HEE_CATEGORY_FOLDERS = ["logos", "design", "perception"] as const
-
 function isHeychoPost(file: QuartzPluginData): boolean {
   const slug = file.slug ?? ""
   const folder = slug.split("/")[0]
-  if (!HEE_CATEGORY_FOLDERS.includes(folder as (typeof HEE_CATEGORY_FOLDERS)[number])) return false
+  if (!HEE_CATEGORY_FOLDERS.includes(folder)) return false
   if (slug.endsWith("/index")) return false
   return true
 }
@@ -55,19 +46,7 @@ function formatMoon(frontmatter: QuartzPluginData["frontmatter"]): string | null
 
 function thumbSvg(category: HeeCategory | null) {
   switch (category) {
-    case "言葉":
-      return (
-        <svg viewBox="0 0 50 50" aria-hidden="true">
-          <path
-            d="M12 20 L24 20 M12 26 L34 26 M12 32 L28 32"
-            stroke="currentColor"
-            stroke-width="1"
-            fill="none"
-          />
-          <circle cx="40" cy="20" r="1.4" fill="currentColor" opacity="0.5" />
-        </svg>
-      )
-    case "意図":
+    case "いろいろつくってみる":
       return (
         <svg viewBox="0 0 50 50" aria-hidden="true">
           <rect
@@ -87,16 +66,65 @@ function thumbSvg(category: HeeCategory | null) {
             opacity="0.18"
             stroke-width="1"
           />
+          <circle cx="37" cy="16" r="2" fill="currentColor" opacity="0.35" />
         </svg>
       )
-    case "認知":
+    case "化け物を召喚する":
       return (
         <svg viewBox="0 0 50 50" aria-hidden="true">
-          <circle cx="25" cy="25" r="3.4" fill="none" stroke="currentColor" stroke-width="1" />
           <path
-            d="M25 25 L40 13 M25 25 L11 14 M25 25 L13 38 M25 25 L39 37"
+            d="M25 38 L25 28"
+            stroke="currentColor"
+            stroke-width="1"
+            fill="none"
+          />
+          <ellipse
+            cx="25"
+            cy="22"
+            rx="8"
+            ry="10"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1"
+            opacity="0.45"
+          />
+          <path
+            d="M17 22 Q25 14 33 22 M17 22 Q25 30 33 22"
             stroke="currentColor"
             opacity="0.28"
+            stroke-width="1"
+            fill="none"
+          />
+          <circle cx="22" cy="20" r="1" fill="currentColor" />
+          <circle cx="28" cy="20" r="1" fill="currentColor" />
+        </svg>
+      )
+    case "言葉をほどいてみる":
+      return (
+        <svg viewBox="0 0 50 50" aria-hidden="true">
+          <path
+            d="M12 20 L24 20 M12 26 L34 26 M12 32 L28 32"
+            stroke="currentColor"
+            stroke-width="1"
+            fill="none"
+          />
+          <circle cx="40" cy="20" r="1.4" fill="currentColor" opacity="0.5" />
+        </svg>
+      )
+    case "日常をチューニングする":
+      return (
+        <svg viewBox="0 0 50 50" aria-hidden="true">
+          <circle cx="25" cy="25" r="10" fill="none" stroke="currentColor" stroke-width="1" opacity="0.35" />
+          <path
+            d="M25 15 L25 25 L32 29"
+            stroke="currentColor"
+            stroke-width="1"
+            fill="none"
+          />
+          <path
+            d="M15 25 L35 25"
+            stroke="currentColor"
+            opacity="0.2"
             stroke-width="1"
           />
         </svg>
@@ -146,9 +174,9 @@ const HomeContent: QuartzComponent = ({ allFiles, fileData, cfg }: QuartzCompone
             <button type="button" class="heechoo-home-cat heechoo-home-cat--active" data-cat="all">
               すべて
             </button>
-            {HEE_CATEGORIES.map(({ id, en }) => (
+            {HEE_CATEGORIES.map(({ id, sub }) => (
               <button type="button" class="heechoo-home-cat" data-cat={id}>
-                {id} <span class="heechoo-home-en">{en}</span>
+                {id} <span class="heechoo-home-en">{sub}</span>
               </button>
             ))}
           </nav>

@@ -3,7 +3,8 @@ title: 韻を踏む気恥ずかしさは露出感
 description: 俳句と日本語ラップに感じる、あの妙な気恥ずかしさ。その正体を、音・韻・露出感から考える。
 date: 2026-05-26
 draft: false
-category: 認知 Perception
+category: 言葉をほどいてみる
+aliases: ["perception/2026-05-26-rhyme-exposure"]
 tags:
   - 思考構造
   - 内省
@@ -18,7 +19,7 @@ cssclasses:
 <div class="heechoo-meta">
   <span>日付：2026-05-26</span>
   <span>月齢：9.3</span>
-  <span>カテゴリ：認知 Perception</span>
+  <span>カテゴリ：言葉をほどいてみる</span>
   <span>タグ：思考構造、内省、俳句</span>
 </div>
 
@@ -125,7 +126,7 @@ cssclasses:
       <div class="heechoo-related-status">準備中</div>
       <div class="heechoo-card-img"></div>
       <div class="heechoo-card-body">
-        <div class="heechoo-card-meta">認知 Perception｜2026.05</div>
+        <div class="heechoo-card-meta">言葉をほどいてみる｜2026.05</div>
         <p class="heechoo-card-title">気恥ずかしさは、どこから来るのか</p>
       </div>
     </div>
@@ -133,7 +134,7 @@ cssclasses:
       <div class="heechoo-related-status">準備中</div>
       <div class="heechoo-card-img"></div>
       <div class="heechoo-card-body">
-        <div class="heechoo-card-meta">言葉 Logos｜2026.05</div>
+        <div class="heechoo-card-meta">言葉をほどいてみる｜2026.05</div>
         <p class="heechoo-card-title">言葉のリズムと、意味の流れ</p>
       </div>
     </div>
@@ -141,7 +142,7 @@ cssclasses:
       <div class="heechoo-related-status">準備中</div>
       <div class="heechoo-card-img"></div>
       <div class="heechoo-card-body">
-        <div class="heechoo-card-meta">意図 Design｜2026.05</div>
+        <div class="heechoo-card-meta">いろいろつくってみる｜2026.05</div>
         <p class="heechoo-card-title">型に入れると、なぜ意図が見えるのか</p>
       </div>
     </div>

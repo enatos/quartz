@@ -1,6 +1,7 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
 import { QuartzComponentProps } from "./quartz/components/types"
+import { HEE_CATEGORY_FOLDERS } from "./quartz/heeCategories"
 
 const notIndex = (page: QuartzComponentProps) => page.fileData.slug !== "index"
 
@@ -12,7 +13,7 @@ function hideOnIndex(component: Parameters<typeof Component.ConditionalRender>[0
 // - title: ""            … 「エクスプローラー」という見出しラベルを消す
 // - folderDefaultState   … カテゴリを開いた状態で表示（記事リンクが最初から見える）
 // - filterFn             … About / Contact / Privacy / タグを左ナビから除外（フッターには残す）
-// - sortFn               … カテゴリを 言葉→意図→認知 の固定順に、記事同士は名前順
+// - sortFn               … カテゴリを make→summon→words→tune の固定順に、記事同士は名前順
 const explorer = Component.Explorer({
   title: "",
   folderDefaultState: "open",
@@ -21,7 +22,7 @@ const explorer = Component.Explorer({
     return !omit.has((node.slugSegment ?? node.displayName).toLowerCase())
   },
   sortFn: (a, b) => {
-    const order = ["logos", "design", "perception"]
+    const order = HEE_CATEGORY_FOLDERS
     const ai = order.indexOf(a.slugSegment ?? "")
     const bi = order.indexOf(b.slugSegment ?? "")
     if (ai !== -1 && bi !== -1) return ai - bi // カテゴリ同士は固定順
