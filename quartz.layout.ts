@@ -1,7 +1,7 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
 import { QuartzComponentProps } from "./quartz/components/types"
-import { HEE_CATEGORY_FOLDERS } from "./quartz/heeCategories"
+import { HEE_CATEGORY_FOLDERS, HEE_RITUAL_FOLDER } from "./quartz/heeCategories"
 
 const notIndex = (page: QuartzComponentProps) => page.fileData.slug !== "index"
 
@@ -22,7 +22,7 @@ const explorer = Component.Explorer({
     return !omit.has((node.slugSegment ?? node.displayName).toLowerCase())
   },
   sortFn: (a, b) => {
-    const order = HEE_CATEGORY_FOLDERS
+    const order = [...HEE_CATEGORY_FOLDERS, HEE_RITUAL_FOLDER]
     const ai = order.indexOf(a.slugSegment ?? "")
     const bi = order.indexOf(b.slugSegment ?? "")
     if (ai !== -1 && bi !== -1) return ai - bi // カテゴリ同士は固定順

@@ -7,4 +7,9 @@ export const HEE_CATEGORIES = [
 
 export const HEE_CATEGORY_FOLDERS = HEE_CATEGORIES.map((c) => c.slug)
 
+/** トップ・Explorer に載せる暫定バンドル（カテゴリ再編前の置き場） */
+export const HEE_RITUAL_FOLDER = "リチュアル" as const
+
+export const HEE_HOME_FOLDERS = [...HEE_CATEGORY_FOLDERS, HEE_RITUAL_FOLDER] as const
+
 export type HeeCategory = (typeof HEE_CATEGORIES)[number]["id"]

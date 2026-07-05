@@ -2,7 +2,7 @@ import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } fro
 import { FullSlug, resolveRelative } from "../../util/path"
 import { QuartzPluginData } from "../../plugins/vfile"
 import { getDate } from "../Date"
-import { HEE_CATEGORIES, HEE_CATEGORY_FOLDERS, type HeeCategory } from "../../heeCategories"
+import { HEE_CATEGORIES, HEE_HOME_FOLDERS, type HeeCategory } from "../../heeCategories"
 import style from "../styles/home.scss"
 // @ts-ignore
 import homeFilterScript from "../scripts/homeFilter.inline"
@@ -10,7 +10,7 @@ import homeFilterScript from "../scripts/homeFilter.inline"
 function isHeychoPost(file: QuartzPluginData): boolean {
   const slug = file.slug ?? ""
   const folder = slug.split("/")[0]
-  if (!HEE_CATEGORY_FOLDERS.includes(folder)) return false
+  if (!HEE_HOME_FOLDERS.includes(folder)) return false
   if (slug.endsWith("/index")) return false
   return true
 }

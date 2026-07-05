@@ -1,7 +1,8 @@
 ---
 title: AIへのプロンプトに宿る呪文と祈りの感覚
 date: 2026-06-30
-category:
+draft: false
+category: 日常をチューニングする
 tags:
   - リチュアル
   - AIとの関係性
