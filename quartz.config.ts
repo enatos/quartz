@@ -26,9 +26,8 @@ const config: QuartzConfig = {
       fontOrigin: "googleFonts",
       cdnCaching: true,
       typography: {
-        title: { name: "Shippori Mincho", weights: [400, 500, 600, 700] },
-        header: { name: "Lora", weights: [400, 500, 600, 700] },
-        body: { name: "Shippori Mincho", weights: [400, 500, 600, 700] },
+        header: "Schibsted Grotesk",
+        body: "Source Sans Pro",
         code: "IBM Plex Mono",
       },
       colors: {

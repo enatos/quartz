@@ -37,17 +37,15 @@ export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
   afterBody: [],
-  footer: hideOnIndex(
-    Component.Footer({
-      creditName: "ねこたこ",
-      links: {
-        HOME: "/",
-        About: "/about",
-        Contact: "/contact",
-        "Privacy Policy": "/privacy",
-      },
-    }),
-  ),
+  footer: Component.Footer({
+    creditName: "ねこたこ",
+    links: {
+      HOME: "/",
+      About: "/about",
+      Contact: "/contact",
+      "Privacy Policy": "/privacy",
+    },
+  }),
 }
 
 const sidebarLeft = [
@@ -81,10 +79,11 @@ export const defaultContentPageLayout: PageLayout = {
     hideOnIndex(Component.ContentMeta()),
     hideOnIndex(Component.TagList()),
   ],
-  left: sidebarLeft.map((c) => hideOnIndex(c)),
+  left: sidebarLeft,
   right: [
-    hideOnIndex(Component.DesktopOnly(Component.Michisuji())),
-    hideOnIndex(Component.Backlinks()),
+    Component.Graph(),
+    Component.DesktopOnly(Component.Michisuji()),
+    Component.Backlinks(),
   ],
 }
 
