@@ -70,6 +70,10 @@ const sidebarLeft = [
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
     Component.ConditionalRender({
+      component: Component.RecentNotes(),
+      condition: (page) => page.fileData.slug === "index",
+    }),
+    Component.ConditionalRender({
       component: Component.Breadcrumbs(),
       condition: notIndex,
     }),
@@ -79,7 +83,7 @@ export const defaultContentPageLayout: PageLayout = {
   ],
   left: sidebarLeft.map((c) => hideOnIndex(c)),
   right: [
-    hideOnIndex(Component.DesktopOnly(Component.TableOfContents())),
+    hideOnIndex(Component.DesktopOnly(Component.Michisuji())),
     hideOnIndex(Component.Backlinks()),
   ],
 }

@@ -12,6 +12,7 @@ import PageTitle from "./PageTitle"
 import ContentMeta from "./ContentMeta"
 import Spacer from "./Spacer"
 import TableOfContents from "./TableOfContents"
+import Michisuji from "./Michisuji"
 import Explorer from "./Explorer"
 import TagList from "./TagList"
 import Graph from "./Graph"
@@ -40,6 +41,7 @@ export {
   ContentMeta,
   Spacer,
   TableOfContents,
+  Michisuji,
   Explorer,
   TagList,
   Graph,
