@@ -13,7 +13,7 @@ function hideOnIndex(component: Parameters<typeof Component.ConditionalRender>[0
 // - title: ""            … 「エクスプローラー」という見出しラベルを消す
 // - folderDefaultState   … カテゴリを開いた状態で表示（記事リンクが最初から見える）
 // - filterFn             … About / Contact / Privacy / タグを左ナビから除外（フッターには残す）
-// - sortFn               … カテゴリを make→summon→words→tune の固定順に、記事同士は名前順
+// - sortFn               … カテゴリを ask→delegate→models→human→store→write→body→studio の固定順に、記事同士は名前順
 const explorer = Component.Explorer({
   title: "",
   folderDefaultState: "open",

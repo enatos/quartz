@@ -44,110 +44,24 @@ function formatMoon(frontmatter: QuartzPluginData["frontmatter"]): string | null
   return null
 }
 
-function thumbSvg(category: HeeCategory | null) {
-  switch (category) {
-    case "いろいろつくってみる":
-      return (
-        <svg viewBox="0 0 50 50" aria-hidden="true">
-          <rect
-            x="13"
-            y="13"
-            width="24"
-            height="24"
-            rx="2"
-            fill="none"
-            stroke="currentColor"
-            opacity="0.3"
-            stroke-width="1"
-          />
-          <path
-            d="M25 13 L25 37 M13 25 L37 25"
-            stroke="currentColor"
-            opacity="0.18"
-            stroke-width="1"
-          />
-          <circle cx="37" cy="16" r="2" fill="currentColor" opacity="0.35" />
-        </svg>
-      )
-    case "化け物を召喚する":
-      return (
-        <svg viewBox="0 0 50 50" aria-hidden="true">
-          <path
-            d="M25 38 L25 28"
-            stroke="currentColor"
-            stroke-width="1"
-            fill="none"
-          />
-          <ellipse
-            cx="25"
-            cy="22"
-            rx="8"
-            ry="10"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1"
-            opacity="0.45"
-          />
-          <path
-            d="M17 22 Q25 14 33 22 M17 22 Q25 30 33 22"
-            stroke="currentColor"
-            opacity="0.28"
-            stroke-width="1"
-            fill="none"
-          />
-          <circle cx="22" cy="20" r="1" fill="currentColor" />
-          <circle cx="28" cy="20" r="1" fill="currentColor" />
-        </svg>
-      )
-    case "言葉をほどいてみる":
-      return (
-        <svg viewBox="0 0 50 50" aria-hidden="true">
-          <path
-            d="M12 20 L24 20 M12 26 L34 26 M12 32 L28 32"
-            stroke="currentColor"
-            stroke-width="1"
-            fill="none"
-          />
-          <circle cx="40" cy="20" r="1.4" fill="currentColor" opacity="0.5" />
-        </svg>
-      )
-    case "日常をチューニングする":
-      return (
-        <svg viewBox="0 0 50 50" aria-hidden="true">
-          <circle cx="25" cy="25" r="10" fill="none" stroke="currentColor" stroke-width="1" opacity="0.35" />
-          <path
-            d="M25 15 L25 25 L32 29"
-            stroke="currentColor"
-            stroke-width="1"
-            fill="none"
-          />
-          <path
-            d="M15 25 L35 25"
-            stroke="currentColor"
-            opacity="0.2"
-            stroke-width="1"
-          />
-        </svg>
-      )
-    default:
-      return (
-        <svg viewBox="0 0 50 50" aria-hidden="true">
-          <path
-            d="M9 30 Q20 16 31 26 T46 22"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1"
-          />
-          <path
-            d="M9 36 Q21 24 32 32"
-            fill="none"
-            stroke="currentColor"
-            opacity="0.25"
-            stroke-width="1"
-          />
-        </svg>
-      )
-  }
+function thumbSvg(_category: HeeCategory | null) {
+  return (
+    <svg viewBox="0 0 50 50" aria-hidden="true">
+      <path
+        d="M9 30 Q20 16 31 26 T46 22"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1"
+      />
+      <path
+        d="M9 36 Q21 24 32 32"
+        fill="none"
+        stroke="currentColor"
+        opacity="0.25"
+        stroke-width="1"
+      />
+    </svg>
+  )
 }
 
 const HomeContent: QuartzComponent = ({ allFiles, fileData, cfg }: QuartzComponentProps) => {
