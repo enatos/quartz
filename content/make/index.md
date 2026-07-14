@@ -1,4 +1,0 @@
----
-title: いろいろつくってみる
-aliases: ["design"]
----
