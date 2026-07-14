@@ -1,3 +1,38 @@
 @use "./base.scss";
+@use "./variables.scss" as *;
 
 // put your custom CSS here!
+
+/* サイト名は常時可視（hover / 親サイドバー状態に依存させない） */
+.sidebar.left .page-title,
+.sidebar.left .page-title a {
+  opacity: 1 !important;
+  visibility: visible !important;
+  color: var(--dark);
+  pointer-events: auto;
+}
+
+/* 右サイドバー廃止後もデスクトップを2カラム（左ナビ + 本文）に固定 */
+@media all and ($desktop) {
+  .page > #quartz-body {
+    grid-template-columns: #{$sidePanelWidth} auto !important;
+    grid-template-areas:
+      "grid-sidebar-left grid-header"
+      "grid-sidebar-left grid-center"
+      "grid-sidebar-left grid-footer" !important;
+  }
+}
+
+/* 記事末尾のグラフがサイドバー幅前提にならないようフル幅寄りに */
+.page .page-footer .graph,
+.center + .page-footer .graph,
+#quartz-body > .center ~ * .graph,
+.page-footer .graph,
+.after-body .graph,
+#quartz-body .graph {
+  max-width: 100%;
+}
+
+.graph {
+  margin-top: 2rem;
+}

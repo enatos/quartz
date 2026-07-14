@@ -13,7 +13,6 @@ const HeychoPageBody: QuartzComponent = (props: QuartzComponentProps) => {
   return <Content {...props} />
 }
 
-HeychoPageBody.css = concatenateResources(HomeContent.css)
-HeychoPageBody.afterDOMLoaded = HomeContent.afterDOMLoaded
+HeychoPageBody.css = concatenateResources(Content.css, HomeContent.css)
 
 export default (() => HeychoPageBody) satisfies QuartzComponentConstructor
