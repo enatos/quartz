@@ -1,4 +1,15 @@
-/* へーちょー トップ — テーマカード地図（デザインは別途。ここでは構造のみ） */
+@use "sass:list";
+
+/* へーちょー トップ — カテゴリカードグリッド（Editorial Layout） */
+
+$heechoo-bg: #fffafa;
+$heechoo-name: #363533;
+$heechoo-sub: #63625e;
+$heechoo-line: #c9c6c0;
+$heechoo-num: #9a9890;
+
+/* n=1..8 → ライン幅。SCSSリスト＋@each で生成（手書き8ブロックにしない） */
+$heechoo-line-widths: 55%, 32%, 44%, 62%, 28%, 50%, 38%, 58%;
 
 .heechoo-sr-only {
   position: absolute;
@@ -8,61 +19,165 @@
   clip: rect(0 0 0 0);
 }
 
+/* 砂の粒子ノイズ（body相当＝ページ全面。カード個別には乗せない） */
+.page:has(.heechoo-home) {
+  background-color: $heechoo-bg;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.02;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 180px 180px;
+  }
+
+  > #quartz-body,
+  .heechoo-home {
+    position: relative;
+    z-index: 1;
+  }
+}
+
 .heechoo-home {
   width: 100%;
   margin: 0;
-  padding: 0;
+  padding: 0.5rem 0 3rem;
+  background: transparent;
 }
 
-.heechoo-home-lead {
-  margin: 0 0 1.5rem;
-  color: var(--darkgray);
-  font-size: 0.95rem;
-}
-
-.heechoo-theme-map {
+.heechoo-cat-map {
   margin: 0;
 }
 
-.heechoo-theme-grid {
+.heechoo-cat-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
-  gap: 0.75rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  column-gap: 2.5rem;
+  row-gap: 3.25rem;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.heechoo-theme-card {
+.heechoo-cat-card {
   margin: 0;
+  padding: 0;
+  /* 枠を持たない */
+  background: none;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
 }
 
-.heechoo-theme-card-link {
+.heechoo-cat-card-link {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
-  height: 100%;
-  padding: 1rem;
-  border: 1px solid var(--lightgray);
-  border-radius: 4px;
+  align-items: flex-start;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
   color: inherit;
   text-decoration: none;
-  background: transparent;
+  background: none;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+
+  /* 文字ブロック・ラインは同じ左端（水平オフセットなし） */
+  text-align: left;
 }
 
-.heechoo-theme-card-title {
-  font-size: 1rem;
-  font-weight: 600;
+.heechoo-cat-line {
+  display: block;
+  width: var(--line-w, 50%);
+  height: 1px;
+  margin: 0 0 0.35rem;
+  padding: 0;
+  border: 0;
+  background: $heechoo-line;
+  transition: width 600ms ease;
 }
 
-.heechoo-theme-card-blurb {
-  flex: 1;
-  color: var(--darkgray);
-  font-size: 0.8rem;
-  line-height: 1.5;
+.heechoo-cat-card-link:hover .heechoo-cat-line,
+.heechoo-cat-card-link:focus-visible .heechoo-cat-line {
+  width: calc(var(--line-w) + 8%);
 }
 
-.heechoo-theme-card-count {
-  color: var(--gray);
-  font-size: 0.8rem;
+.heechoo-cat-num {
+  display: block;
+  margin: 0;
+  color: $heechoo-num;
+  font-family: "Lora", var(--headerFont), serif;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+}
+
+.heechoo-cat-name {
+  display: block;
+  margin: 0;
+  color: $heechoo-name;
+  font-family: "Shippori Mincho", var(--bodyFont), serif;
+  font-size: 1.35rem;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.heechoo-cat-sub {
+  display: block;
+  margin: 0.15rem 0 0;
+  color: $heechoo-sub;
+  font-family: "Shippori Mincho", var(--bodyFont), serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  line-height: 1.85;
+  /* 自然折り返し。max-width は付けない */
+}
+
+@for $i from 1 through list.length($heechoo-line-widths) {
+  .heechoo-cat-card:nth-child(#{$i}) {
+    --line-w: #{list.nth($heechoo-line-widths, $i)};
+  }
+}
+
+/* モバイル：1列。ライン長の差は維持。縦余白を厚めに */
+@media all and (max-width: 800px) {
+  .heechoo-home {
+    padding: 0.25rem 0 2.5rem;
+  }
+
+  .heechoo-cat-grid {
+    grid-template-columns: 1fr;
+    row-gap: 2.75rem;
+  }
+}
+
+/* ダークモード：暖色系の反転。タイトル・説明は 4.5:1 以上を維持 */
+:root[saved-theme="dark"] {
+  .page:has(.heechoo-home) {
+    background-color: #1a1918;
+  }
+
+  .heechoo-cat-name {
+    color: #eceae6; /* ≈13:1 on #1a1918 */
+  }
+
+  .heechoo-cat-sub {
+    color: #b3b0a8; /* ≈8:1 on #1a1918 */
+  }
+
+  .heechoo-cat-num {
+    color: #8a8780;
+  }
+
+  .heechoo-cat-line {
+    background: #5c5954;
+  }
 }

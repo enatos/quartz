@@ -29,11 +29,15 @@ const recentNotes = Component.RecentNotes({
   filter: isArticleBody,
 })
 
+// トップはカードグリッドのみ（recent / explorer / 記事一覧は出さない）
 const sidebarLeft = [
   Component.PageTitle(),
   Component.MobileOnly(Component.Spacer()),
   Component.Search(),
-  recentNotes,
+  Component.ConditionalRender({
+    component: recentNotes,
+    condition: notIndex,
+  }),
 ]
 
 // components shared across all pages
