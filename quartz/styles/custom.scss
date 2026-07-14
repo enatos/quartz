@@ -5,11 +5,16 @@
 
 /* サイト名は常時可視（hover / 親サイドバー状態に依存させない） */
 .sidebar.left .page-title,
-.sidebar.left .page-title a {
+.sidebar.left .page-title a,
+.sidebar.left .page-title-block {
   opacity: 1 !important;
   visibility: visible !important;
-  color: var(--dark);
   pointer-events: auto;
+}
+
+.sidebar.left .page-title,
+.sidebar.left .page-title a {
+  color: var(--dark);
 }
 
 /* 右サイドバー廃止後もデスクトップを2カラム（左ナビ + 本文）に固定 */
