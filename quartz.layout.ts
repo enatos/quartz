@@ -48,7 +48,7 @@ export const sharedPageComponents: SharedLayout = {
     // ダークモード切替UIなし。OS prefers-color-scheme に追従するだけ
     Component.ThemeFollow(),
     Component.ConditionalRender({
-      component: Component.Graph(),
+      component: Component.Graph({ localGraph: { depth: 2 } }),
       condition: isArticlePage,
     }),
   ],
