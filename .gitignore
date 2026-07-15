@@ -9,3 +9,6 @@ tsconfig.tsbuildinfo
 private/
 .replit
 replit.nix
+
+# Local sample mockups (do not publish)
+content/media/sample-*.png

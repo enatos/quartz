@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Vault（3_推敲中）→ quartz/content へ記事をコピーする。
+ * Vault（4_校了）→ quartz/content へ記事をコピーする。
  * frontmatter は title / date / category / tags のみ残し、本文は改変しない。
  * Vault 側の原稿は一切書き換えない。
  */
@@ -27,7 +27,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const REPO_ROOT = path.resolve(__dirname, "..")
 
 const DEFAULT_VAULT =
-  "/Users/eriram/Documents/Obsidian Vault/2_へーちょー/個別記事/3_推敲中"
+  "/Users/eriram/Documents/Obsidian Vault/2_へーちょー/個別記事/4_校了"
 const DEFAULT_CONTENT = path.join(REPO_ROOT, "content")
 
 function categorySlugFromId(category) {
