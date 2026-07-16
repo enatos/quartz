@@ -15,6 +15,64 @@
 .sidebar.left .page-title,
 .sidebar.left .page-title a {
   color: var(--dark);
+  font-family: "Shippori Mincho", var(--bodyFont), serif;
+  font-weight: 500;
+}
+
+/* 左ナビの日本語を記事タイトルに近い明朝・中太へ */
+.sidebar.left .recent-notes > h3,
+.sidebar.left .recent-notes .desc h3,
+.sidebar.left .recent-notes .desc h3 a {
+  font-family: "Shippori Mincho", var(--bodyFont), serif;
+  font-weight: 500;
+}
+
+.sidebar.left .page-title-tagline {
+  font-family: var(--bodyFont);
+  font-weight: 400;
+}
+
+/*
+ * 日本語見出しが Lora(headerFont)→system-ui ゴシックに落ちるのを防ぐ。
+ * 記事タイトル・カテゴリ名見出し・一覧内タイトルを本文と同じ明朝へ。
+ */
+.page h1,
+.page h2,
+.page h3,
+.page h4,
+.page h5,
+.page h6,
+.page .page-header h1.article-title,
+.page h1.article-title,
+.page-listing .section .desc h3,
+.page-listing .section .desc h3 a {
+  font-family: "Shippori Mincho", var(--bodyFont), serif;
+}
+
+.page .page-header h1.article-title,
+.page h1.article-title {
+  font-weight: 500;
+  margin: 2rem 0 0.85rem 0;
+}
+
+.page-listing .section .desc h3,
+.page-listing .section .desc h3 a {
+  font-weight: 500;
+}
+
+.page .page-header .content-meta {
+  margin-top: 0.35rem;
+  margin-bottom: 0;
+}
+
+.page .page-header .tags {
+  margin-top: 1.35rem;
+  margin-bottom: 2.25rem;
+}
+
+.page .center > article p,
+.page .center > article li {
+  line-height: 1.9;
 }
 
 /* 右サイドバー廃止後もデスクトップを2カラム（左ナビ + 本文）に固定 */
