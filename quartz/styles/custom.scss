@@ -22,7 +22,10 @@
 /* 左ナビの日本語を記事タイトルに近い明朝・中太へ */
 .sidebar.left .recent-notes > h3,
 .sidebar.left .recent-notes .desc h3,
-.sidebar.left .recent-notes .desc h3 a {
+.sidebar.left .recent-notes .desc h3 a,
+.sidebar.left .explorer .title-button h2,
+.sidebar.left .explorer .folder-container .folder-title,
+.sidebar.left .explorer .explorer-content li > a {
   font-family: "Shippori Mincho", var(--bodyFont), serif;
   font-weight: 500;
 }
@@ -98,4 +101,155 @@
 
 .graph {
   margin-top: 2rem;
+}
+
+/* Explorer: へーちょーの静かな左ナビに寄せる */
+.sidebar.left .explorer {
+  min-height: 0;
+  flex: 1 1 auto;
+}
+
+.sidebar.left .explorer .title-button {
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--lightgray) 82%, var(--dark) 18%);
+}
+
+.sidebar.left .explorer .title-button h2 {
+  font-size: 1rem;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+}
+
+.sidebar.left .explorer .fold,
+.sidebar.left .explorer .folder-icon {
+  color: var(--darkgray);
+  opacity: 0.9;
+}
+
+.sidebar.left .explorer-content {
+  min-height: 0;
+  margin-top: 0.8rem;
+  padding-right: 0.35rem;
+  scrollbar-gutter: stable;
+}
+
+.sidebar.left .explorer-content ul li {
+  margin: 0;
+}
+
+.sidebar.left .explorer-content li > a,
+.sidebar.left .explorer .folder-container .folder-title {
+  display: inline-block;
+  line-height: 1.85;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: auto-phrase;
+}
+
+.sidebar.left .explorer-content li > a {
+  font-size: 0.93rem;
+  color: var(--darkgray);
+  opacity: 1;
+}
+
+.sidebar.left .explorer .folder-container {
+  align-items: flex-start;
+  gap: 0.15rem;
+}
+
+.sidebar.left .explorer .folder-container > div {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.sidebar.left .explorer .folder-container .folder-title {
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: var(--dark);
+  text-decoration: none;
+}
+
+.sidebar.left .explorer .folder-container div > button {
+  width: 100%;
+}
+
+.sidebar.left .explorer .folder-container div > button span {
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: var(--dark);
+}
+
+.sidebar.left .explorer-content .folder-outer > ul {
+  margin-left: 0.2rem;
+  padding-left: 0.95rem;
+  border-left: 1px solid color-mix(in srgb, var(--lightgray) 78%, var(--dark) 22%);
+}
+
+.sidebar.left .explorer-content li > a:hover,
+.sidebar.left .explorer-content li > a:focus-visible,
+.sidebar.left .explorer .folder-container .folder-title:hover,
+.sidebar.left .explorer .folder-container .folder-title:focus-visible,
+.sidebar.left .explorer .folder-container div > button:hover span,
+.sidebar.left .explorer .folder-container div > button:focus-visible span,
+.sidebar.left .explorer .folder-icon:hover,
+.sidebar.left .explorer .folder-icon:focus-visible {
+  color: var(--secondary);
+}
+
+.sidebar.left .explorer-content li > a.active,
+.sidebar.left .explorer .folder-container.active .folder-title {
+  color: var(--secondary);
+}
+
+.sidebar.left .explorer-content li > a.active {
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--secondary) 60%, transparent 40%);
+  text-underline-offset: 0.16em;
+}
+
+.sidebar.left .explorer-content li > a.internal {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+
+@media all and ($desktop) {
+  .sidebar.left .explorer-content {
+    padding-bottom: 1rem;
+  }
+}
+
+@media all and ($tablet) {
+  .sidebar.left .explorer .title-button h2 {
+    font-size: 0.96rem;
+  }
+
+  .sidebar.left .explorer .folder-container .folder-title,
+  .sidebar.left .explorer .folder-container div > button span,
+  .sidebar.left .explorer-content li > a {
+    font-size: 0.9rem;
+  }
+}
+
+@media all and ($mobile) {
+  .sidebar.left .explorer {
+    flex: 0 0 auto;
+    margin-right: 0.25rem;
+  }
+
+  .sidebar.left .explorer .mobile-explorer {
+    border: 1px solid var(--lightgray);
+    border-radius: 999px;
+  }
+
+  .sidebar.left .explorer-content {
+    padding: 4rem 1.25rem 2rem 1.25rem;
+  }
+
+  .sidebar.left .explorer .title-button {
+    padding-bottom: 0.55rem;
+  }
 }

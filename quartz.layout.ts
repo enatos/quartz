@@ -1,5 +1,6 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
+import type { Options as ExplorerOptions } from "./quartz/components/Explorer"
 import { QuartzComponentProps } from "./quartz/components/types"
 import { QuartzPluginData } from "./quartz/plugins/vfile"
 
@@ -22,11 +23,27 @@ function isArticlePage(page: QuartzComponentProps): boolean {
   return isArticleBody(page.fileData)
 }
 
-const recentNotes = Component.RecentNotes({
-  title: "最近の記事",
-  limit: 3,
-  showTags: false,
-  filter: isArticleBody,
+const explorerFilterFn: ExplorerOptions["filterFn"] = (node) => {
+  const allowedRoots = [
+    "ask",
+    "delegate",
+    "models",
+    "human",
+    "store",
+    "write",
+    "body",
+    "studio",
+  ]
+  const [root] = node.slug.split("/")
+  return root !== undefined && allowedRoots.includes(root)
+}
+
+const explorer = Component.Explorer({
+  title: "記事一覧",
+  folderDefaultState: "collapsed",
+  folderClickBehavior: "link",
+  useSavedState: true,
+  filterFn: explorerFilterFn,
 })
 
 // トップはカードグリッドのみ（recent / explorer / 記事一覧は出さない）
@@ -35,7 +52,7 @@ const sidebarLeft = [
   Component.MobileOnly(Component.Spacer()),
   Component.Search(),
   Component.ConditionalRender({
-    component: recentNotes,
+    component: explorer,
     condition: notIndex,
   }),
 ]
