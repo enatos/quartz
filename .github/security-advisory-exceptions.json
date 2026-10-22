@@ -1,0 +1,19 @@
+{
+  "review_by": "2026-11-22",
+  "exceptions": [
+    {
+      "id": "GHSA-vfj7-8cjw-p6xm",
+      "package": "braces",
+      "version": "3.0.3",
+      "reason": "No patched release. Both Quartz globby call sites set braceExpansion:false. Normal discovery and literal braces are covered by glob.test.ts. Input patterns are local repository configuration, not a public endpoint.",
+      "source": "https://github.com/advisories/GHSA-vfj7-8cjw-p6xm"
+    },
+    {
+      "id": "GHSA-hp3w-g68c-fv3c",
+      "package": "sprintf-js",
+      "version": "1.0.3",
+      "reason": "No patched release. Only inherited via gray-matter -> js-yaml 3 -> argparse. FrontMatter restricts language selectors to data parsers and supplies patched YAML/TOML engines; JSON uses JSON.parse. The legacy YAML parser/formatter is not selected by this application.",
+      "source": "https://github.com/advisories/GHSA-hp3w-g68c-fv3c"
+    }
+  ]
+}
