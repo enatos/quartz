@@ -1,0 +1,31 @@
+name: Security checks
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24.22.1'
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npx --no-install tsc --noEmit
+      - name: Check advisories and time-limited mitigations
+        run: |
+          npm audit --json > "$RUNNER_TEMP/quartz-audit.json" || test "$?" = 1
+          node scripts/check-security-advisories.mjs "$RUNNER_TEMP/quartz-audit.json"
+      - name: Build with isolated test content
+        run: |
+          mkdir -p "$RUNNER_TEMP/quartz-fixture"
+          printf '%s\n' '---' 'title: Security build fixture' '---' '# Build fixture' '> [!note] Callout' '> Compatibility check.' > "$RUNNER_TEMP/quartz-fixture/index.md"
+          npm run build -- --directory "$RUNNER_TEMP/quartz-fixture" --output "$RUNNER_TEMP/quartz-public" --concurrency 2
+          test -f "$RUNNER_TEMP/quartz-public/index.html"

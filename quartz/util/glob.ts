@@ -16,6 +16,8 @@ export async function glob(
       cwd,
       ignore: ignorePatterns,
       gitignore: true,
+      // No brace expansion: braces has no patched release (CVE-2026-93687).
+      braceExpansion: false,
     })
   ).map(toPosixPath)
   return fps as FilePath[]

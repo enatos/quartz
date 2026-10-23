@@ -63,6 +63,16 @@ export const FrontMatter: QuartzTransformerPlugin<Partial<Options>> = (userOpts)
         () => {
           return (_, file) => {
             const fileData = Buffer.from(file.value as Uint8Array)
+            const source = fileData.toString("utf8").replace(/^\uFEFF/, "")
+            const delimiter = Array.isArray(opts.delimiters) ? opts.delimiters[0] : opts.delimiters
+            if (matter.test(source, opts)) {
+              const declared = source.slice(delimiter.length).split(/\r?\n/, 1)[0].trim().toLowerCase()
+              // gray-matter also bundles a JavaScript evaluator. Content must
+              // only select data parsers, never that executable engine.
+              if (declared && !["yaml", "yml", "toml", "json"].includes(declared)) {
+                throw new Error("Unsupported frontmatter language: only YAML, TOML and JSON are allowed")
+              }
+            }
             const { data } = matter(fileData, {
               ...opts,
               engines: {
